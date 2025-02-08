@@ -34,6 +34,8 @@ namespace TasksToDoHasitha.PageModels
 
         public Command AddTaskCommand { get; }
 
+        public Command<TaskModel> SelectTaskCommand { get; }
+
         private TaskModel _selectedTask;
         public TaskModel SelectedTask
         {
@@ -44,6 +46,16 @@ namespace TasksToDoHasitha.PageModels
                 {
                     _selectedTask = value;
                     RaisePropertyChanged();
+
+                    if (_selectedTask != null)
+                    {
+                        // Handle the selected task
+                        _ = NavigateToEditTaskPage(_selectedTask);
+
+                        // Clear the selection
+                        _selectedTask = null;
+                        RaisePropertyChanged(nameof(SelectedTask));
+                    }
                 }
             }
         }
@@ -57,6 +69,7 @@ namespace TasksToDoHasitha.PageModels
                 FilteredTasks = new ObservableCollection<TaskModel>();
 
                 AddTaskCommand = new Command(async () => await NavigateToAddTaskPage());
+                SelectTaskCommand = new Command<TaskModel>(async (task) => await NavigateToEditTaskPage(task));
 
                 _ = LoadTasksAsync();
             }
@@ -87,6 +100,21 @@ namespace TasksToDoHasitha.PageModels
         private async Task NavigateToAddTaskPage()
         {
             await CoreMethods.PushPageModel<AddEditTaskPageModel>();
+        }
+
+        private async Task NavigateToEditTaskPage(TaskModel task)
+        {
+            try
+            {
+                if (task == null)
+                    return;
+
+                await CoreMethods.PushPageModel<AddEditTaskPageModel>(task);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public async Task LoadTasksAsync()
