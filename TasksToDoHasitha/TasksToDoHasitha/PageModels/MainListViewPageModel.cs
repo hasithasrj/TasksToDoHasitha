@@ -5,6 +5,7 @@ using TasksToDoHasitha.Models;
 using TasksToDoHasitha.Services;
 using Xamarin.Forms;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace TasksToDoHasitha.PageModels
 {
@@ -49,13 +50,20 @@ namespace TasksToDoHasitha.PageModels
 
         public MainListViewPageModel(IDatabaseService databaseService)
         {
-            _databaseService = databaseService;
-            Tasks = new ObservableCollection<TaskModel>();
-            FilteredTasks = new ObservableCollection<TaskModel>();
+            try
+            {
+                _databaseService = databaseService;
+                Tasks = new ObservableCollection<TaskModel>();
+                FilteredTasks = new ObservableCollection<TaskModel>();
 
-            AddTaskCommand = new Command(() => NavigateToAddTaskPage());
+                AddTaskCommand = new Command(async () => await NavigateToAddTaskPage());
 
-            LoadTasksAsync();
+                _ = LoadTasksAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         private void FilterTasks()
@@ -76,40 +84,15 @@ namespace TasksToDoHasitha.PageModels
             RaisePropertyChanged(nameof(FilteredTasks));
         }
 
-        private void NavigateToAddTaskPage()
+        private async Task NavigateToAddTaskPage()
         {
-            throw new NotImplementedException();
+            await CoreMethods.PushPageModel<AddEditTaskPageModel>();
         }
 
-        public void LoadTasksAsync()
+        public async Task LoadTasksAsync()
         {
-            Tasks = new ObservableCollection<TaskModel>
-            {
-                new TaskModel
-                {
-                    Id = 1,
-                    Title = "Task 1",
-                    Description = "Description for Task 1",
-                    DueDate = DateTime.Now.AddDays(1),
-                    IsCompleted = false
-                },
-                new TaskModel
-                {
-                    Id = 2,
-                    Title = "Task 2",
-                    Description = "Description for Task 2",
-                    DueDate = DateTime.Now.AddDays(2),
-                    IsCompleted = true
-                },
-                new TaskModel
-                {
-                    Id = 3,
-                    Title = "Task 3",
-                    Description = "Description for Task 3",
-                    DueDate = DateTime.Now.AddDays(3),
-                    IsCompleted = false
-                }
-            };
+            var tasks = await _databaseService.GetTasksAsync();
+            Tasks = new ObservableCollection<TaskModel>(tasks);
 
             FilterTasks();
         }

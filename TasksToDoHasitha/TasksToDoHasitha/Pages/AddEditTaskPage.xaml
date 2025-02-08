@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TasksToDoHasitha.Pages.AddEditTaskPage">
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <Entry Placeholder="Title"
+                Text="{Binding Task.Title}" />
+            <Editor Placeholder="Description"
+                Text="{Binding Task.Description}"
+                HeightRequest="100" />
+            <DatePicker Date="{Binding Task.DueDate}" />
+
+            <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                <Label Text="Completed" VerticalOptions="Center" />
+                <Switch IsToggled="{Binding Task.IsCompleted}" />
+            </StackLayout>
+
+            <Button Text="Save"
+                Command="{Binding SaveTaskCommand}"
+                BackgroundColor="#007AFF"
+                TextColor="White"
+                CornerRadius="5"
+                HorizontalOptions="FillAndExpand"
+                Margin="0,10" />
+
+            <Button Text="Delete"
+                Command="{Binding DeleteTaskCommand}"
+                BackgroundColor="Red"
+                TextColor="White"
+                CornerRadius="5"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding IsExistingTask}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

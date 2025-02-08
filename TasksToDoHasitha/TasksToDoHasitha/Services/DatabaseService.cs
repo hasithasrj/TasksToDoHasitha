@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using TasksToDoHasitha.Models;
+using Xamarin.Essentials;
 
 namespace TasksToDoHasitha.Services
 {
@@ -23,12 +24,19 @@ namespace TasksToDoHasitha.Services
 
         public Task<List<TaskModel>> GetTasksAsync()
         {
-            throw new NotImplementedException();
+            return _database.Table<TaskModel>().ToListAsync();
         }
 
         public Task<int> SaveTaskAsync(TaskModel task)
         {
-            throw new NotImplementedException();
+            if (task.Id != 0)
+            {
+                return _database.UpdateAsync(task);
+            }
+            else
+            {
+                return _database.InsertAsync(task);
+            }
         }
     }
 }
