@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
+﻿using FreshMvvm;
 using Xamarin.Forms.Xaml;
 
 namespace TasksToDoHasitha.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainListViewPage : ContentPage
+    public partial class MainListViewPage : FreshBaseContentPage
     {
         public MainListViewPage()
         {

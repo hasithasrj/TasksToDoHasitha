@@ -1,12 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<pages:FreshBaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:FreshMvvm;assembly=FreshMvvm"
              x:Class="TasksToDoHasitha.Pages.MainListViewPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="MainListViewPage"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
-</ContentPage>
+    <StackLayout Padding="10">
+
+        <SearchBar Placeholder="Search tasks..." Margin="20"/>
+
+        <CollectionView ItemsSource="{Binding Tasks}"
+                  SelectionMode="Single"
+                  SelectedItem="{Binding SelectedTask, Mode=TwoWay}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.EmptyView>
+                <StackLayout>
+                    <Label Text="No tasks found."
+                           HorizontalOptions="Center"
+                           VerticalOptions="CenterAndExpand"
+                           TextColor="Gray"
+                           FontAttributes="Italic"/>
+                </StackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="10"
+                        Margin="5"
+                        HasShadow="True"
+                        CornerRadius="5">
+                        <StackLayout Orientation="Horizontal">
+                            <StackLayout Margin="0,0,10,0"
+                         HorizontalOptions="FillAndExpand">
+                                <Label Text="{Binding Title}"
+                       FontAttributes="Bold"
+                       FontSize="Medium" />
+                                <Label Text="{Binding Description}"
+                       FontSize="Small"
+                       TextColor="Gray"
+                       IsVisible="{Binding HasDescription}" />
+                                <Label Text="{Binding DueDate, StringFormat='Due: {0:MMM dd, yyyy}'}"
+                       FontSize="Small"
+                       TextColor="Gray" />
+                            </StackLayout>
+                            <CheckBox IsChecked="{Binding IsCompleted}"
+                      VerticalOptions="Center"
+                      HorizontalOptions="End" />
+                        </StackLayout>
+                    </Frame>
+                    </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Text="Add New Task"
+              Command="{Binding AddTaskCommand}"
+              Margin="10"
+              BackgroundColor="#007AFF"
+              TextColor="White"
+              CornerRadius="5"
+              HorizontalOptions="FillAndExpand" />
+    </StackLayout>
+</pages:FreshBaseContentPage>
