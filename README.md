@@ -4,7 +4,7 @@ This README provides an overview of the project and known issues.
 # Project Structure
 The project follows the standard structure for Xamarin.Forms - 5.0
 
-# TestedPlatform 
+# Tested Platform 
 - Android 11.0 API 30
 - Did not test on iOS due to lack of resources
 
