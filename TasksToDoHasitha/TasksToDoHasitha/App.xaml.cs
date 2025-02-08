@@ -2,10 +2,8 @@
 using System;
 using System.IO;
 using TasksToDoHasitha.PageModels;
-using TasksToDoHasitha.Pages;
 using TasksToDoHasitha.Services;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace TasksToDoHasitha
 {

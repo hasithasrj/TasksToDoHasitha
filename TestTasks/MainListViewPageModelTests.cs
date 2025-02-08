@@ -1,6 +1,4 @@
-using FreshMvvm;
 using Moq;
-using SQLite;
 using System.Collections.ObjectModel;
 using TasksToDoHasitha.Models;
 using TasksToDoHasitha.PageModels;
@@ -58,7 +56,7 @@ namespace TestTasks
             Assert.NotEmpty(_viewModel.FilteredTasks);
         }
 
-        
+
     }
 }
 

@@ -1,8 +1,6 @@
-﻿using SQLite;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using TasksToDoHasitha.Models;
-using Xamarin.Essentials;
 
 namespace TasksToDoHasitha.Services
 {

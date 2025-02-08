@@ -1,10 +1,8 @@
-﻿using Xunit;
+﻿using FreshMvvm;
 using Moq;
-using System.Threading.Tasks;
+using TasksToDoHasitha.Models;
 using TasksToDoHasitha.PageModels;
 using TasksToDoHasitha.Services;
-using TasksToDoHasitha.Models;
-using FreshMvvm;
 
 namespace TasksToDoHasitha.Tests.PageModels
 {

@@ -1,11 +1,11 @@
 ﻿using FreshMvvm;
-using System.Collections.ObjectModel;
 using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 using TasksToDoHasitha.Models;
 using TasksToDoHasitha.Services;
 using Xamarin.Forms;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace TasksToDoHasitha.PageModels
 {
