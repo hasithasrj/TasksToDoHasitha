@@ -1,7 +1,5 @@
 ﻿using FreshMvvm;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using System;
 using TasksToDoHasitha.Models;
 using TasksToDoHasitha.Services;
@@ -14,7 +12,24 @@ namespace TasksToDoHasitha.PageModels
     {
         private readonly IDatabaseService _databaseService;
 
+        private string _searchQuery;
+        public string SearchQuery
+        {
+            get => _searchQuery;
+            set
+            {
+                if (_searchQuery != value)
+                {
+                    _searchQuery = value;
+                    RaisePropertyChanged();
+                    FilterTasks();
+                }
+            }
+        }
+
         public ObservableCollection<TaskModel> Tasks { get; set; }
+
+        public ObservableCollection<TaskModel> FilteredTasks { get; set; }
 
         public Command AddTaskCommand { get; }
 
@@ -36,10 +51,29 @@ namespace TasksToDoHasitha.PageModels
         {
             _databaseService = databaseService;
             Tasks = new ObservableCollection<TaskModel>();
-            
+            FilteredTasks = new ObservableCollection<TaskModel>();
+
             AddTaskCommand = new Command(() => NavigateToAddTaskPage());
 
             LoadTasksAsync();
+        }
+
+        private void FilterTasks()
+        {
+            if (string.IsNullOrWhiteSpace(SearchQuery))
+            {
+                FilteredTasks = new ObservableCollection<TaskModel>(Tasks);
+            }
+            else
+            {
+                var filtered = Tasks.Where(t =>
+                    (!string.IsNullOrWhiteSpace(t.Title) && t.Title.ToLowerInvariant().Contains(SearchQuery.ToLowerInvariant())) ||
+                    (!string.IsNullOrWhiteSpace(t.Description) && t.Description.ToLowerInvariant().Contains(SearchQuery.ToLowerInvariant()))
+                );
+
+                FilteredTasks = new ObservableCollection<TaskModel>(filtered);
+            }
+            RaisePropertyChanged(nameof(FilteredTasks));
         }
 
         private void NavigateToAddTaskPage()
@@ -76,6 +110,8 @@ namespace TasksToDoHasitha.PageModels
                     IsCompleted = false
                 }
             };
+
+            FilterTasks();
         }
     }
 }

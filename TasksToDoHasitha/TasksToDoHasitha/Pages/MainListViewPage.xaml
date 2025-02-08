@@ -5,9 +5,11 @@
              x:Class="TasksToDoHasitha.Pages.MainListViewPage">
     <StackLayout Padding="10">
 
-        <SearchBar Placeholder="Search tasks..." Margin="20"/>
+        <SearchBar Placeholder="Search tasks..." 
+                   Text="{Binding SearchQuery}"
+                   Margin="20"/>
 
-        <CollectionView ItemsSource="{Binding Tasks}"
+        <CollectionView ItemsSource="{Binding FilteredTasks}"
                   SelectionMode="Single"
                   SelectedItem="{Binding SelectedTask, Mode=TwoWay}">
             <CollectionView.ItemsLayout>
