@@ -4,9 +4,9 @@
              x:Class="TasksToDoHasitha.Pages.AddEditTaskPage">
     <ContentPage.Content>
         <StackLayout Padding="10">
-            <Entry Placeholder="Title"
+            <Entry Placeholder="Title" MaxLength="100"
                 Text="{Binding Task.Title}" />
-            <Editor Placeholder="Description"
+            <Editor Placeholder="Description" MaxLength="300"
                 Text="{Binding Task.Description}"
                 HeightRequest="100" />
             <DatePicker Date="{Binding Task.DueDate}" />

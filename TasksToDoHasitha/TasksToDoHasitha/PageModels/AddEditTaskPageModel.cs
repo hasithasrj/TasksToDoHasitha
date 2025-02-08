@@ -53,7 +53,12 @@ namespace TasksToDoHasitha.PageModels
 
         private async Task DeleteTask()
         {
-            throw new NotImplementedException();
+            var confirm = await CoreMethods.DisplayAlert("Confirm", "Delete this task?", "Yes", "No");
+            if (confirm)
+            {
+                await _databaseService.DeleteTaskAsync(Task);
+                await CoreMethods.PopPageModel(Task);
+            }
         }
     }
 }

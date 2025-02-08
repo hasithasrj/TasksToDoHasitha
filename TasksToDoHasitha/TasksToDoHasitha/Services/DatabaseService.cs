@@ -19,7 +19,7 @@ namespace TasksToDoHasitha.Services
 
         public Task<int> DeleteTaskAsync(TaskModel task)
         {
-            throw new NotImplementedException();
+            return _database.DeleteAsync(task);
         }
 
         public Task<List<TaskModel>> GetTasksAsync()
