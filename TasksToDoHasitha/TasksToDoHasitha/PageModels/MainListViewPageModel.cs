@@ -79,7 +79,7 @@ namespace TasksToDoHasitha.PageModels
             }
         }
 
-        private void FilterTasks()
+        public void FilterTasks()
         {
             if (string.IsNullOrWhiteSpace(SearchQuery))
             {

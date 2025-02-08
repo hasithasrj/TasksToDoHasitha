@@ -39,7 +39,7 @@ namespace TasksToDoHasitha.PageModels
             }
         }
 
-        private async Task SaveTask()
+        public async Task SaveTask()
         {
             if (string.IsNullOrWhiteSpace(Task.Title))
             {
